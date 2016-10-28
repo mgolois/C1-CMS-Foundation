@@ -64,8 +64,9 @@
     <Reference Include="Microsoft.CodeAnalysis.VisualBasic">
       <HintPath>..\Packages\Microsoft.CodeAnalysis.VisualBasic.0.7.4052301-beta\lib\net45\Microsoft.CodeAnalysis.VisualBasic.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
-      <HintPath>..\Packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.0.2.0-pre\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=0.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.2\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -2577,7 +2578,7 @@
   </ProjectExtensions>
   <PropertyGroup>
     <PreBuildEvent>if not exist "$(ProjectDir)web.config" (
-   copy "$(ProjectDir)DebugBuild.Web.config" "$(ProjectDir)Web.config"
+   copy "$(ProjectDir)$(ConfigurationName)Build.Web.config" "$(ProjectDir)Web.config"
 )
 
 if not exist "$(ProjectDir)App_Data\Composite\Composite.config" (
@@ -2593,7 +2594,10 @@ set rce=%25errorlevel%25
 if not %25rce%25==1 exit %25rce%25 else exit 0</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>if not exist "$(ProjectDir)\bin\Roslyn" (
+md "$(ProjectDir)\bin\Roslyn"
+cd "$(SolutionDir)\Packages\Microsoft.Net.Compilers.*\tools" 
+start /MIN robocopy . "$(ProjectDir)\bin\Roslyn" /E /xf "vb*.*" "*visualbasic*.*"
+ )</PostBuildEvent>
   </PropertyGroup>
 </Project>
