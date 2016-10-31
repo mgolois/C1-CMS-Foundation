@@ -2582,7 +2582,7 @@
 )
 
 if not exist "$(ProjectDir)App_Data\Composite\Composite.config" (
-   copy "$(ProjectDir)App_Data\Composite\DebugBuild.Composite.config" "$(ProjectDir)App_Data\Composite\Composite.config"
+   copy "$(ProjectDir)App_Data\Composite\$(ConfigurationName)Build.Composite.config" "$(ProjectDir)App_Data\Composite\Composite.config"
 )
 
 if not exist "$(ProjectDir)Frontend\Config\VisualEditor\common.xml" (
