@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
+using Composite.Core;
 using Composite.Core.Caching;
 
 namespace Composite.Data
@@ -20,9 +21,25 @@ namespace Composite.Data
             serviceStack.Add(service);
         }
 
+        internal static void AddService<T>()
+        {
+            var service = ServiceLocator.GetRequiredService<T>();
+            Verify.IsNotNull(service, $"No services with type {typeof(T)} could be found");
+            
+            AddService(service);
+        }
+
         internal static void AddDefaultService(object service)
         {
             DataServiceDefaultList.Add(service);
+        }
+
+        internal static void AddDefaultService<T>()
+        {
+            var service = ServiceLocator.GetRequiredService<T>();
+            Verify.IsNotNull(service, $"No services with type {typeof(T)} could be found");
+
+            AddDefaultService(service);
         }
 
         internal static void DisableServices()

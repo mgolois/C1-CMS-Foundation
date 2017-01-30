@@ -28,9 +28,26 @@ namespace Composite.Data
         }
 
         /// <exclude />
+        public void AddService<T>()
+        {
+            if (!_dataServicePushed)
+            {
+                DataServiceScopeManager.PushDataServiceScope();
+                _dataServicePushed = true;
+            }
+            DataServiceScopeManager.AddService<T>();
+        }
+
+        /// <exclude />
         public void AddDefaultService(object service)
         {
             DataServiceScopeManager.AddDefaultService(service);
+        }
+
+        /// <exclude />
+        public void AddDefaultService<T>()
+        {
+            DataServiceScopeManager.AddDefaultService<T>();
         }
 
         /// <exclude />

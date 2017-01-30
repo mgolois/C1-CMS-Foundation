@@ -19,5 +19,13 @@ namespace Composite.Data
         {
             DataServiceScopeManager.AddDefaultService(service);
         }
+
+        /// <summary>
+        /// Adds a default service to data scope manager. All DataScopes created after this point will include the service you provide.
+        /// </summary>
+        public static void RegisterDefaultService<T>()
+        {
+            DataServiceScopeManager.AddDefaultService<T>();
+        }
     }
 }

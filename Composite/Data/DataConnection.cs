@@ -50,6 +50,14 @@ namespace Composite.Data
         }
 
         /// <summary>
+        /// attach service to data connection
+        /// </summary>
+        public void AddService<T>()
+        {
+            Implementation.DataScope.AddService<T>();
+        }
+
+        /// <summary>
         /// disable all services in the data connection
         /// </summary>
         public void DisableServices()
